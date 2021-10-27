@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Agregar Vendedor</title>
+        <meta charset="UTF-8"> </meta>
+        <!--Bootstrap CDN-->
+        <link rel="stylesheet" 
+              href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+              integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
+              crossorigin="anonymous" /> 
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <!--<script type="text/javascript" th:src="@{/js/actions.js}"></script>-->
+    </head>
+    <body>
+
+        <!-- SECCION NAVEGACIÓN-->
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md fixed-top">
+            <div class="container">      
+                <a th:href="@{/}" class="navbar-brand">
+                    <strong>MinTIC Ciclo 3</strong> - Grupo 2
+                </a>
+
+                <button type="button" class="navbar-toggler" data-toggle="collapse"
+                        data-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false"
+                        aria-label="Desplegar menú de navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu-principal">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a th:href="@{/}" class="nav-link">Inicio</a></li>
+                        <li class="nav-item"><a th:href="@{/productos}" class="nav-link">Productos</a></li>
+                        <li class="nav-item"><a th:href="@{/vendedores}" class="nav-link active">Vendedores</a></li>
+                        <li class="nav-item"><a th:href="@{/facturas}" class="nav-link">Facturas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <main>
+                <br/><br/><br/>
+                <h3>Nuevo Vendedor</h3>
+                <hr/>   
+                <form th:action="@{/guardar/vendedor}" class="form-group" th:object="${vendedor}" method="post">
+                    <div class="form-group">
+                        <!--<label>Código</label>-->
+                        <input id = "codigovendedor" type="hidden" class="form-control" placeholder="VEND00" pattern="VEND[0-9]{2}" th:field ="*{codVendedor}" required/>
+                        <!--<small>Formato: VEND01.</small>-->
+                    </div>
+                    <div class="form-group">
+                        <label> Nombre</label>
+                        <input id = "nombrevendedor" type="text" class="form-control" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\w\s.,-]{5,50}" th:field = "*{nombreVendedor}" required/>  
+                        <small>Mínimo 5 máximo 50 caracteres.</small>
+                    </div>
+                    <div class="form-group">
+                        <label> Fecha de nacimiento </label>
+                        <!--<input id = "fecha" type="date" th:field = "*{fechaNacimientoVendedor}"/> <br/><br/>-->                 
+                        <div id='fnacimientovendedor' class='input-group date'>
+                            <input type='date' class="form-control" th:field = "*{fechaNacimientoVendedor}" required/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label> Telefóno</label>
+                        <input id = "telefonovendedor" type="tel" class="form-control" placeholder="300 456 7890" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" th:field = "*{telefonoVendedor}" required/>                     
+                        <small>Formato: 601 316 5000</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"> Email</label>
+                        <input id = "emailvendedor" type="email" class="form-control"  th:field = "*{emailVendedor}" required/>                     
+                    </div>
+                    <div class="form-group">
+                        <label> Dirección</label>
+                        <input id = "direccionvendedor" type="text" class="form-control" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\w\s.,-#]{64}" th:field = "*{direccionVendedor}" required/>                     
+                        <small>Máximo 64 caracteres.</small>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success"> Agregar </button>
+                        <a th:href="@{/vendedores}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </main>
+        </div>
+
+        <!-- SECCION PIE DE PÁGINA -->
+        <footer class="pie-de-pagina text-center text-md-right bg-dark text-white">
+            <div class="container">
+                <p class="m-0 py-3">Copyright © 2021. Todos los derechos reservados. </p>
+            </div>
+        </footer>
+
+        <!-- ARCHIVOS BOOTSTRAP JAVASCRIPT -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>                
+    </body>
+</html>

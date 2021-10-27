@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Agregar Factura</title>
+        <meta charset="UTF-8"> </meta>
+        <!--Bootstrap CDN-->
+        <link rel="stylesheet" 
+              href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+              integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
+              crossorigin="anonymous" /> 
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <!--<script type="text/javascript" th:src="@{/js/actions.js}"></script>-->F
+    </head>
+    <body>
+
+        <!-- SECCION NAVEGACIÓN-->
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md fixed-top">
+            <div class="container">      
+                <a th:href="@{/}" class="navbar-brand">
+                    <strong>MinTIC Ciclo 3</strong> - Grupo 2
+                </a>
+
+                <button type="button" class="navbar-toggler" data-toggle="collapse"
+                        data-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false"
+                        aria-label="Desplegar menú de navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu-principal">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a th:href="@{/}" class="nav-link">Inicio</a></li>
+                        <li class="nav-item"><a th:href="@{/productos}" class="nav-link">Productos</a></li>
+                        <li class="nav-item"><a th:href="@{/vendedores}" class="nav-link">Vendedores</a></li>
+                        <li class="nav-item"><a th:href="@{/facturas}" class="nav-link active">Facturas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <main>
+                <br/><br/><br/>
+                <h3>Nuevo Factura</h3>
+                <hr/> 
+                <form th:action = "@{/guardar/factura}" class="form-group" th:object="${factura}" method="post">
+                    <div class="form-group">
+                        <!--<label> Número de factura </label>-->
+                        <input id = "numerofactura" type="hidden" class="form-control" placeholder="FAC000" pattern="FAC[0-9]{3}" th:field ="*{numeroFactura}"required />
+                        <!--<small>Formato: FAC001.</small>-->
+                    </div>
+                    <div class="form-group">
+                        <label> Producto </label>
+                        <select id = "codigoproducto" class="form-control" th:field ="*{codigoProducto}" required>
+                            <option value="">Seleccione ...</option>
+                            <option th:each="producto:${productos}"
+                                    th:value="${producto.codProducto}"
+                                    th:text="${producto.codProducto} + ': '+ ${producto.nombreProducto}"
+                                    />                      
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Fecha de venta  </label>
+                        <div id='fnacimientovendedor' class='input-group date' required>
+                            <input type='date' class="form-control" th:field = "*{fechaVenta}"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label> Vendedor</label>
+                        <select id = "codigovendedor" class="form-control" th:field ="*{codigoVendedor}"required>
+                            <option value="">Seleccione ...</option>
+                            <option th:each="vendedor:${vendedores}"
+                                    th:value="${vendedor.codVendedor}"
+                                    th:text="${vendedor.codVendedor} + ': '+ ${vendedor.nombreVendedor}"
+                                    />                      
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Total</label>
+                        <input id = "valorfactura"  type="number" step="any" min="0" placeholder="$" class="form-control" th:field = "*{valorFactura}"required=""/> 
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success"> Agregar </button>
+                        <a th:href="@{/facturas}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </main>
+        </div>   
+
+        <!-- SECCION PIE DE PÁGINA -->
+        <footer class="pie-de-pagina text-center text-md-right bg-dark text-white">
+            <div class="container">
+                <p class="m-0 py-3">Copyright © 2021. Todos los derechos reservados. </p>
+            </div>
+        </footer>
+
+        <!-- ARCHIVOS BOOTSTRAP JAVASCRIPT -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>                
+    </body>
+</html>

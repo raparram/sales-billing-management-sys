@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista Vendedores</title>
+        <meta charset="UTF-8"> </meta>
+        <!--Bootstrap CDN-->
+        <link rel="stylesheet" 
+              href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+              integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
+              crossorigin="anonymous" />    
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+        <!--<script type="text/javascript" th:src="@{/js/actions.js}"></script>-->
+    </head>
+    <body>
+
+        <!-- SECCION NAVEGACIÓN-->
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md fixed-top">
+            <div class="container">      
+                <a th:href="@{/}" class="navbar-brand">
+                    <strong>MinTIC Ciclo 3</strong> - Grupo 2
+                </a>
+
+                <button type="button" class="navbar-toggler" data-toggle="collapse"
+                        data-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false"
+                        aria-label="Desplegar menú de navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menu-principal">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a th:href="@{/}" class="nav-link">Inicio</a></li>
+                        <li class="nav-item"><a th:href="@{/productos}" class="nav-link">Productos</a></li>
+                        <li class="nav-item"><a th:href="@{/vendedores}" class="nav-link active">Vendedores</a></li>
+                        <li class="nav-item"><a th:href="@{/facturas}" class="nav-link">Facturas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <br/><br/><br/>
+            <h3>Vendedores</h3>
+            <hr/>
+            <div>
+                <a th:href="@{/crear/vendedor}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+            </div>
+            <br/><br/>
+            <div th:if="${#lists.isEmpty(vendedores)}">
+                <h4>No hay registros asociados, puede crear un nuevo vendedor en el botón "Crear vendedor".</h4>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(vendedores)}">
+                <div class="form-group">
+                    <input type="text" class="form-control pull-right" style="width:20%" id="search" placeholder="Buscar...">
+                </div> 
+                <table class="table-bordered table pull-right" id="mytable" cellspacing="0" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>F. de nacimiento</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="vendedor: ${vendedores}">
+                            <td th:text="${vendedor.codVendedor}" />
+                            <td th:text="${vendedor.nombreVendedor}" />
+                            <td th:text="${vendedor.fechaNacimientoVendedor}" />
+                            <td th:text="${vendedor.telefonoVendedor}" />
+                            <td th:text="${vendedor.emailVendedor}" />
+                            <td th:text="${vendedor.direccionVendedor}" />
+                            <td>
+                                <a th:href="@{/actualizar/vendedor/{codigo}(codigo=${vendedor.codVendedor})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                <!-- Trigger Modal Eliminar-->
+                                <a class="btn btn-danger" data-toggle="modal" th:attr="data-target='#'+${vendedor.codVendedor}"><i class="fas fa-trash-alt"></i></a>
+
+                                <!-- Modal Eliminar -->
+                                <div class="modal fade" th:id="${vendedor.codVendedor}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Eliminar Vendedor</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Desea eliminar el vendedor: [[${vendedor.codVendedor}]]?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                <a th:href="@{/eliminar/vendedor/{codigo}(codigo=${vendedor.codVendedor})}" class="btn btn-danger ml-2">Sí</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                            
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${#lists.size(vendedores) == 1}">
+                <a th:href="@{/vendedores}" class="btn btn-secondary">Ver todos</a>
+            </div>
+            <br/>
+        </div>
+
+        <!-- SECCION PIE DE PÁGINA -->
+        <footer class="pie-de-pagina text-center text-md-right bg-dark text-white">
+            <div class="container">
+                <p class="m-0 py-3">Copyright © 2021. Todos los derechos reservados. </p>
+            </div>
+        </footer>   
+
+        <!-- ARCHIVOS BOOTSTRAP JAVASCRIPT -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>        
+
+		<script src="https://kit.fontawesome.com/934ebe0a82.js" crossorigin="anonymous"></script>
+
+        <script>
+            // Write on keyup event of keyword input element
+            $(document).ready(function () {
+                $("#search").keyup(function () {
+                    _this = this;
+                    // Show only matching TR, hide rest of them
+                    $.each($("#mytable tbody tr"), function () {
+                        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                            $(this).hide();
+                        else
+                            $(this).show();
+                    });
+                });
+            });
+        </script>        
+
+    </body>
+</html>
