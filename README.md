@@ -20,16 +20,16 @@ El sistema implementa un CRUD para gestionar facturas, productos y vendedores, g
 Para el despliegue en Heroku se le dio el contexto de Catálogo de Elementos Electrónicos, disponible en [Metatech](https://metatech2.herokuapp.com/), al ser un servicio gratuito se demora unos 20 segundos en cargar la página.
 
 ## Al clonar
-Este proyecto se desarrolló en Apache NetBeans 12.5, una versión anterior puede servir desde que permita el uso de Maven y de Spring Boot, para la base de datos se utilizó PostgreSQL 13. Para ejecutar de manera exitosa un clon de este repositorio se recomienda usar las herramientas mencionadas, al utilizar Maven todas las dependencias serán instaladas al darle Build al proyecto, debe garantizar que el Build sea compilado con JDK 1.8. El archivo que crea la base de datos se encuentra en el archivo [db_sys.sql](https://github.com/raparram/sales-billing-management-sys/blob/main/db_sys.sql).    
+Este proyecto se desarrolló en Apache NetBeans 12.5, una versión anterior puede servir desde que permita el uso de Maven y de Spring Boot, para la base de datos se utilizó PostgreSQL 13. Para ejecutar de manera exitosa un clon de este repositorio se recomienda usar las herramientas mencionadas, al utilizar Maven todas las dependencias serán instaladas al darle Build al proyecto, debe garantizar que el Build sea compilado con JDK 1.8. El archivo que crea la base de datos es [db_sys.sql](https://github.com/raparram/sales-billing-management-sys/blob/main/db_sys.sql).    
     
 Después de terminar el proceso de Build pude ejecutar el archivo [AplicacionApplication.java](https://github.com/raparram/sales-billing-management-sys/blob/main/src/main/java/com/miempresa/aplicacion/AplicacionApplication.java), y es posible ingresar al aplicativo en http://localhost:8081/, si lo desea puede editarse el puerto y las credenciales de la base de datos en el archivo [application.yml](https://github.com/raparram/sales-billing-management-sys/blob/main/src/main/resources/application.yml).
 
 ## Vistas previas
 Vista http://localhost:8081/ 
-![](/previoBienvenidos.jpg)
+![](https://github.com/raparram/sales-billing-management-sys/blob/main/previews/previoBienvenidos.JPG)
 
 Vista http://localhost:8081/vendedores
-![](/prevoVendedores.jpg)
+![](https://github.com/raparram/sales-billing-management-sys/blob/main/previews/previoVendedores.JPG)
 
 ## Citas
 - Para mas información sobre queries con JPA y Spring Boot: [Spring Data JPA - Reference Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#preface)
